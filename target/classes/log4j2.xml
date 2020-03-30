@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="info" name="spring-boot-log-to-kafka" packages="com.pgw.dr">
+    <Appenders>
+        <!-- <Kafka name="kafkaAppender" topic="kafka-logs">
+       		<JSONLayout>
+        		<KeyValuePair key = "timestamp" value="$${date:yyyy-MM-dd HH:mm:ss.SSS}"/>
+            </JSONLayout>
+            <Property name="bootstrap.servers">localhost:9092</Property>
+        </Kafka> -->
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{dd MMM yyyy HH:mm:ss.SSS} %-5p [%-7t] %F:%L - %m%n"/>
+        </Console>
+        <Console name="stderr" target="SYSTEM_ERR">
+            <PatternLayout pattern="%d{dd MMM yyyy HH:mm:ss.SSS} %-5p [%-7t] %F:%L - %m%n" />
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" />
+            </Filters>
+        </Console>
+
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="kafkaAppender"/>
+            <AppenderRef ref="stdout"/>
+            <AppenderRef ref="stderr"/>
+        </Root>
+        <Logger name="org.apache.kafka" level="warn" />
+    </Loggers>
+</Configuration>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+	<property name="wsd.fininst.id.seq" value="nextval('seq_wsd_financial_institution')" dbms="postgresql" />
+
+	<changeSet author="nerissa.tacata"
+		id="changelog-wsd_financial_institution-1.0.0" failOnError="true">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<sequenceExists sequenceName="seq_wsd_financial_institution" />
+			</not>
+		</preConditions>
+		<sql>
+			CREATE SEQUENCE seq_wsd_financial_institution
+			MINVALUE 1
+			MAXVALUE
+			9223372036854775807
+			INCREMENT BY 1
+			START WITH 1
+		</sql>
+	</changeSet>
+	
+	<changeSet author="nerissa.tacata"
+		id="changelog-wsd_financial_institution-1.0.1" failOnError="true">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="FINANCIAL_INSTITUTION" />
+			</not>
+		</preConditions>
+		<createTable tableName="FINANCIAL_INSTITUTION">
+		    <column name="ID" type="BIGINT" defaultValueSequenceNext="seq_wsd_financial_institution">
+		        <constraints primaryKey="true" nullable="false"/>
+		    </column>
+		    <column name="NAME" type="VARCHAR2(255)" >
+		        <constraints unique="true" nullable="false"/>
+		    </column>
+		    <column name="TYPE" type="VARCHAR2(255)" >
+		        <constraints nullable="false"/>
+		    </column>
+		    <column name="BRSTN" type="VARCHAR2(10)" >
+		        <constraints nullable="true"/>
+		    </column>
+		    <column name="SWIFT_CODE" type="VARCHAR2(15)" >
+		        <constraints nullable="true"/>
+		    </column>
+		    <column name="ADDRESS" type="VARCHAR2(150)" >
+		        <constraints nullable="true"/>
+		    </column>
+		    <column name="BANCNET_CODE" type="VARCHAR2(255)">
+				<constraints nullable="true" />
+			</column>
+		    <column name="PCHC_CODE" type="VARCHAR2(255)" >
+		        <constraints nullable="true"/>
+		    </column>
+			<column name="TRANSFER_ENABLED" type="NUMBER(1)">
+				<constraints nullable="false" />
+			</column>
+		    <column name="ENROLLMENT_ENABLED" type="NUMBER(1)" >
+		        <constraints nullable="false"/>
+		    </column>
+            <column name="DATE_CREATED" type="DATETIME"
+				defaultValueComputed="CURRENT_TIMESTAMP">
+				<constraints nullable="true" />
+			</column>
+		    <column name="CREATED_BY" type="VARCHAR2(255)" >
+		        <constraints nullable="true"/>
+		    </column>
+            <column name="DATE_MODIFIED" type="DATETIME"
+				defaultValueComputed="CURRENT_TIMESTAMP">
+				<constraints nullable="true" />
+			</column>
+		    <column name="UPDATED_BY" type="VARCHAR2(255)" >
+		        <constraints nullable="true"/>
+		    </column>
+		</createTable>
+	</changeSet>
+	
+	
+	<changeSet author="nerissa.tacata" id="changelog-wsd_financial_institution-1.0.2">
+		<createProcedure>
+			CREATE OR REPLACE FUNCTION fxn_update_date_modified() 
+				RETURNS trigger AS 
+			$BODY$
+			BEGIN
+				NEW.date_modified :=CURRENT_TIMESTAMP;
+				RETURN NEW;
+			END;
+			$BODY$
+			LANGUAGE 'plpgsql';
+		</createProcedure>
+	</changeSet>
+	
+	<changeSet author="nerissa.tacata" id="changelog-wsd_financial_institution-1.0.3">
+		<createProcedure>
+			CREATE OR REPLACE FUNCTION fxn_update_date_created() 
+				RETURNS trigger AS 
+			$BODY$
+			BEGIN
+				NEW.date_created :=CURRENT_TIMESTAMP;
+				RETURN NEW;
+			END;
+			$BODY$
+			LANGUAGE 'plpgsql';
+		</createProcedure>
+	</changeSet>
+	
+	
+	<changeSet author="nerissa.tacata" id="changelog-wsd_financial_institution-1.0.4">
+		<sql splitStatements="false">
+			DROP TRIGGER IF EXISTS trigger_upd_financial_institution_date_modified ON FINANCIAL_INSTITUTION;
+			CREATE TRIGGER trigger_upd_financial_institution_date_modified BEFORE INSERT OR UPDATE ON FINANCIAL_INSTITUTION FOR EACH ROW EXECUTE PROCEDURE fxn_update_date_modified();
+		</sql>
+	</changeSet>
+	
+	<changeSet author="nerissa.tacata" id="changelog-wsd_financial_institution-1.0.5">
+		<sql splitStatements="false">
+			DROP TRIGGER IF EXISTS trigger_upd_financial_institution_date_created ON FINANCIAL_INSTITUTION;
+			CREATE TRIGGER trigger_upd_financial_institution_date_created BEFORE INSERT ON FINANCIAL_INSTITUTION FOR EACH ROW EXECUTE PROCEDURE fxn_update_date_created();
+		</sql>
+	</changeSet>
+</databaseChangeLog>

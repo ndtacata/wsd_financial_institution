@@ -1,0 +1,11 @@
+ph\com\metrobank\fin\inst\model\StaticModelEntityTest.class
+ph\com\metrobank\fin\inst\controllers\CustomResponseEntityExceptionHandlerTest.class
+ph\com\metrobank\fin\inst\model\ErrorDetailsEntityTest.class
+ph\com\metrobank\fin\inst\services\FinancialInsitutionServiceTest.class
+ph\com\metrobank\fin\inst\controllers\FinancialInstitutionControllerTest.class
+ph\com\metrobank\fin\inst\model\FinancialInstitutionEntityTest.class
+ph\com\metrobank\fin\inst\services\LoggingServiceTest.class
+ph\com\metrobank\fin\inst\services\FinancialInstitutionSpecificationsTest.class
+ph\com\metrobank\fin\inst\utils\UtilsTest.class
+ph\com\metrobank\fin\inst\model\FinancialInstitutionRequestEntityTest.class
+ph\com\metrobank\fin\inst\controllers\WsdFinancialInstitutionApplicationTest.class

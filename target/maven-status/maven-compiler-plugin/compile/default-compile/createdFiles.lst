@@ -1,0 +1,15 @@
+ph\com\metrobank\fin\inst\model\FinancialInstitutionRequest.class
+ph\com\metrobank\fin\inst\controller\CustomResponseEntityExceptionHandler.class
+ph\com\metrobank\fin\inst\services\FinancialInstitutionService.class
+ph\com\metrobank\fin\inst\services\LoggingService.class
+ph\com\metrobank\fin\inst\utils\Utils.class
+ph\com\metrobank\fin\inst\model\TraceLog.class
+ph\com\metrobank\fin\inst\services\FinancialInstitutionSpecifications.class
+ph\com\metrobank\fin\inst\model\ErrorDetails.class
+ph\com\metrobank\fin\inst\repository\FinancialInstitutionRepository.class
+ph\com\metrobank\fin\inst\WsdFinancialInstitutionApplication.class
+ph\com\metrobank\fin\inst\model\FinancialInstitution.class
+ph\com\metrobank\fin\inst\model\ErrorMessage.class
+ph\com\metrobank\fin\inst\config\SwaggerConfig.class
+ph\com\metrobank\fin\inst\exception\FinancialInstitutionDefinitionException.class
+ph\com\metrobank\fin\inst\controller\FinancialInstitutionController.class
